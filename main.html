@@ -193,20 +193,23 @@
       }
 
       function dodajZgloszenie() {
-        let temat = document.getElementById("input-temat").value;
-        let klient = document.getElementById("input-klient").value;
+        let tematInput = document.getElementById("input-temat");
+        let klientInput = document.getElementById("input-klient");
+        
+        let temat = tematInput.value.trim();
+        let klient = klientInput.value.trim();
         let status = document.getElementById("input-status").value;
         let priorytet = document.getElementById("input-priorytet").value;
 
-        if (temat === "" || klient === "") {
-          alert("Wypełnij temat i klienta!");
+        if (temat === "" || klient === "" || temat.length < 2) {
+          alert("Temat zgłoszenia musi mieć co najmniej 2 znaki (same spacje są niedozwolone) oraz klient musi być wypełniony!");
           return;
         }
 
         let nowe = {
           id: "#TK-" + (1090 + zgloszenia.length + 1),
-          temat: temat,
-          klient: klient,
+          temat: temat,       
+          klient: klient,     
           status: status,
           priorytet: priorytet
         };
@@ -215,15 +218,10 @@
 
         odswiezWidok();
 
-        document.getElementById("input-temat").value = "";
-        document.getElementById("input-klient").value = "";
+        tematInput.value = "";
+        klientInput.value = "";
         zamknijFormularz();
       }
-
-      window.onload = function() {
-        odswiezWidok();
-        lucide.createIcons();
-      };
     </script>
   </body>
 </html>
